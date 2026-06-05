@@ -22,6 +22,11 @@ func main() {
 		w.Write([]byte(`{"status":"ok"}`))
 	})
 
+	r.Get("/users/{id}", func(w http.ResponseWriter, r *http.Request) {
+		userID := chi.URLParamFromCtx(r.Context(), "id")
+		w.Write([]byte(fmt.Sprintf("user: %s", userID)))
+	})
+
 	fmt.Println("starting server on :8080")
 	http.ListenAndServe(":8080", r)
 }
